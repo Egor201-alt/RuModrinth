@@ -18,6 +18,7 @@
   --color-active-filter-bg: #418656a2;
 }
 
+
 /* --- 1. ОБЩИЕ СТИЛИ И СБРОСЫ --- */
 html, body { margin: 0; padding: 0; background: var(--color-background); color: var(--color-text); font-family: var(--font-family); min-height: 100vh; }
 a { text-decoration: none; color: inherit; }
@@ -30,11 +31,11 @@ button { font-family: var(--font-family); }
 .logo-link { display: flex; align-items: center; gap: 8px; text-decoration: none; color: inherit; }
 .logo-full-image { height: 37px; width: auto; user-select: none; -moz-user-select: none; }
 .header-nav { display: flex; align-items: center; gap: 8px; margin-left: 24px; }
-.header-nav .nav-tab { display: flex; flex-direction: row; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 8px; font-weight: 500; color: var(--color-text-darker); transition: background-color 0.2s, color 0.2s; text-decoration: none; }
+.header-nav .nav-tab { display: flex; flex-direction: row; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 12px; font-weight: 500; color: var(--color-text-darker); transition: background-color 0.2s, color 0.2s; text-decoration: none; }
 .header-nav .nav-tab:hover { background-color: #333; color: var(--color-text); }
 .header-nav .nav-tab svg { width: 20px; height: 20px; }
 .header-nav .nav-tab .nav-tab-label { font-size: 1em; font-weight: 500; }
-.header-nav .nav-tab.active { background-color: var(--color-primary); color: #111; }
+.header-nav .nav-tab.active { background-color: #22ff6c85; color: #eeeeee; }
 .header-nav .nav-tab.active svg[data-type="mods"] { fill: #111; }
 
 /* --- СТИЛИ ДЛЯ "ПРИМАГНИЧИВАНИЯ" ФУТЕРА --- */
@@ -130,17 +131,17 @@ button { font-family: var(--font-family); }
 .mod-page-layout { display: grid; grid-template-columns: 1fr 320px; gap: 24px; align-items: start; }
 .mod-page-content {}
 .mod-page-sidebar { display: flex; flex-direction: column; gap: 24px; }
-.mod-page-nav { display: inline-flex; background-color: #262626; border-radius: 12px; padding: 6px; gap: 6px; margin-bottom: 24px; }
+.mod-page-nav { display: inline-flex; background-color: #262626; border-radius: 12px; padding: 6px; gap: 6px; margin-bottom: 24px; box-shadow: 0 3px 20px rgba(0, 0, 0, 0.3); }
 .mod-page-nav .nav-tab { background: none; border: none; color: var(--color-text-darker); padding: 8px 24px; font-size: 1rem; font-weight: 600; cursor: pointer; border-radius: 8px; transition: background-color 0.2s, color 0.2s; }
 .mod-page-nav .nav-tab:hover { color: var(--color-text); }
 .mod-page-nav .nav-tab.active { background-color: var(--color-primary); color: #fff; }
-.mod-body-container { background-color: var(--color-card); border-radius: 12px; border: 1px solid transparent; }
+.mod-body-container { background-color: var(--color-card); border-radius: 12px; border: 1px solid transparent; box-shadow: 0 3px 20px rgba(0, 0, 0, 0.3); }
 .mod-body-content { padding: 24px; line-height: 1.7; color: var(--color-text); }
 .mod-body-content > *:first-child { margin-top: 0; }
 .mod-body-content a { color: var(--color-text-author); text-decoration: underline; }
 .mod-body-content img { max-width: 100%; border-radius: 8px; }
 .mod-body-content h1, .mod-body-content h2, .mod-body-content h3 { color: #fff; }
-.info-card { background-color: var(--color-card); border-radius: 12px; border: 1px solid transparent; padding: 20px; }
+.info-card { background-color: var(--color-card); border-radius: 12px; border: 1px solid transparent; padding: 20px; box-shadow: 0 3px 20px rgba(0, 0, 0, 0.3);}
 .info-card-title { margin: 0 0 16px; font-size: 1.2rem; color: #fff; }
 .info-card h4 { margin: 16px 0 8px; font-size: 1rem; color: var(--color-text-darker); }
 .info-tag-list { display: flex; flex-wrap: wrap; gap: 8px; }
@@ -182,7 +183,7 @@ button { font-family: var(--font-family); }
 .fallback-icon svg path { stroke-width: 1.4; }
 
 /* --- 6. СТРАНИЦА МОДА: ТАБЫ (VERSIONS, CHANGELOG, GALLERY) --- */
-.tab-content { padding: 0; background-color: var(--color-card); border-radius: 12px; border: 1px solid var(--color-card-border); }
+.tab-content { padding: 0; background-color: var(--color-card); border-radius: 12px; box-shadow: 0 3px 20px rgba(0, 0, 0, 0.3);}
 .versions-tab table { width: 100%; border-collapse: collapse; }
 .versions-tab th, .versions-tab td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--color-card-border); }
 .versions-tab th { color: var(--color-text-darker); font-size: 0.9em; }
@@ -223,12 +224,14 @@ button { font-family: var(--font-family); }
 
 .gallery-tab-empty { padding: 24px; }
 .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
-.gallery-card { background-color: var(--color-card); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; border: 1px solid transparent; }
+.gallery-card { background-color: var(--color-card); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; border: 1px solid transparent; box-shadow: 0 3px 20px rgba(0, 0, 0, 0.3); }
 .gallery-card-image { width: 100%; height: 200px; object-fit: cover; display: block; cursor: pointer; }
 .gallery-card-body { padding: 16px; display: flex; flex-direction: column; flex-grow: 1; }
 .gallery-card-body h3 { margin: 0 0 8px 0; font-size: 1.25rem; font-weight: 700; color: var(--color-text); }
 .gallery-card-body p { margin: 0 0 16px 0; color: var(--color-text-darker); line-height: 1.5; flex-grow: 1; }
 .gallery-card-meta { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; color: var(--color-text-darker); margin-top: auto; }
+.gallery-card-meta svg { display: flex; align-items: center; gap: 8px; color: var(--color-text-darker); margin-top: auto; }
+.gallery-card-meta svg path { stroke-width: 1.4; }
 
 /* --- 7. КОМПОНЕНТЫ: ПАГИНАЦИЯ И МОДАЛЬНЫЕ ОКНА --- */
 .pagination { display: flex; align-items: center; gap: 4px; }
