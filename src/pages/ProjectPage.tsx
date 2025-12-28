@@ -1,4 +1,3 @@
-
 // src/pages/ProjectPage.tsx
 import React, { useEffect, useState, useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -36,7 +35,6 @@ export function ProjectPage() {
       .catch(e => console.error("Failed to fetch all loaders:", e));
   }, []);
 
-  // --- НОВЫЙ КОД: Находим иконку Rift с помощью useMemo ---
   const riftIconSvg = useMemo(() => {
       const riftLoader = allLoaders.find(loader => loader.name === 'rift');
       return riftLoader ? riftLoader.icon : null;
