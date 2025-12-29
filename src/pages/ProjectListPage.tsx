@@ -26,7 +26,7 @@ export function ProjectListPage() {
     const [allLoaders, setAllLoaders] = useState<any[]>([]);
 
     useEffect(() => {
-        fetch('${API_BASE_URL}/tag/loader')
+        fetch(`${API_BASE_URL}/tag/loader`)
             .then(r => r.json())
             .then(data => Array.isArray(data) && setAllLoaders(data))
             .catch(e => console.error("Failed to fetch all loaders:", e));
