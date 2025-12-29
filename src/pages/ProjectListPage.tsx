@@ -1,7 +1,6 @@
-// src/pages/ProjectListPage.tsx
 import React, { useEffect, useState, useMemo } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { FaSyncAlt, FaGlobe, FaBook, FaCogs, FaDownload, FaHeart } from 'react-icons/fa';
+import { FaGlobe, FaBook, FaCogs, FaDownload, FaHeart, FaSyncAlt } from 'react-icons/fa';
 
 import { MainLayout } from '../components/Layout';
 import { FilterMenu } from '../components/FilterMenu';
@@ -9,6 +8,7 @@ import { Pagination, ModeratedImage } from '../components/Common';
 import { PROJECT_TYPES, PROJECT_TYPE_PATHS, PROJECT_TYPE_LABELS, BANNED_KEYWORDS } from '../constants';
 import { formatNumber, timeAgo } from '../utils';
 import { API_BASE_URL } from '../constants';
+import { ModernLoader, ErrorDisplay } from '../components/StatusMessages';
 
 export function ProjectListPage() {
     const { projectType = 'mods' } = useParams<{ projectType: string }>();
@@ -49,6 +49,7 @@ export function ProjectListPage() {
 
     useEffect(() => {
         setLoading(true);
+        setError(undefined);
         
         const apiProjectType = PROJECT_TYPES[projectType] || 'mod';
         const allFacets: string[][] = [[`project_type:${apiProjectType}`]];
@@ -113,6 +114,15 @@ export function ProjectListPage() {
 
     const currentLabel = PROJECT_TYPE_LABELS[projectType] || 'Projects';
 
+    const handleRetry = () => {
+        setLoading(true);
+        setError(undefined);
+
+        setPage(prev => (prev === 0 ? 0 : 0)); 
+
+        window.location.reload();
+    };
+
     return (
         <MainLayout sidebar={
             <FilterMenu 
@@ -141,17 +151,26 @@ export function ProjectListPage() {
                 </div>
             </div>
 
-            {error && <div style={{ color: 'red' }}>{error}</div>}
+            {/* ОТОБРАЖЕНИЕ ОШИБКИ */}
+            {error && (
+                <ErrorDisplay 
+                    message={error} 
+                    onRetry={handleRetry}
+                />
+            )}
       
             <div className="mods-list-wrapper">
-                {loading && projects.length > 0 && (
-                    <div className="loading-overlay">
-                        <FaSyncAlt className="spinner" />
-                    </div>
-                )}
-                {loading && projects.length === 0 && (
-                    <div className="initial-loading-container">
-                        <FaSyncAlt className="spinner" />
+                {/* ОТОБРАЖЕНИЕ ЗАГРУЗКИ */}
+                {loading && (
+                    <div className={projects.length > 0 ? "loading-overlay" : "initial-loading-container"}>
+                        {/* Если это первая загрузка, показываем полный лоадер с текстом */}
+                        {projects.length === 0 ? (
+                            <ModernLoader />
+                        ) : (
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
+                                <FaSyncAlt className="spinner" />
+                            </div>
+                        )}
                     </div>
                 )}
 
