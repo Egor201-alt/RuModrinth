@@ -1,73 +1,110 @@
-# React + TypeScript + Vite
+<div align="center">
+  <a href="https://rumodrinth.onrender.com/">
+    <img src="https://rumodrinth.onrender.com/RuModrinth_logo_full.png" alt="RuModrinth Logo" width="400" />
+  </a>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+  <h1>RuModrinth</h1>
 
-Currently, two official plugins are available:
+  <p>
+    <strong>A user-friendly, fast, and minimalist interface for the Modrinth API.</strong>
+  </p>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+  <p>
+    <a href="https://rumodrinth.onrender.com/">
+      <img src="https://img.shields.io/badge/LIVE-DEMO-2ea44f?style=for-the-badge&logo=vercel" alt="Live Demo" />
+    </a>
+  </p>
 
-## React Compiler
+  <p>
+    <img src="https://img.shields.io/badge/React-18-61DAFB?style=flat-square&logo=react&logoColor=black" alt="React" />
+    <img src="https://img.shields.io/badge/TypeScript-5.0-3178C6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript" />
+    <img src="https://img.shields.io/badge/Vite-Fast-646CFF?style=flat-square&logo=vite&logoColor=white" alt="Vite" />
+    <img src="https://img.shields.io/badge/Modrinth-API-1BD96A?style=flat-square&logo=modrinth&logoColor=white" alt="Modrinth API" />
+  </p>
+</div>
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+<br />
 
-## Expanding the ESLint configuration
+## 📖 About
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+**RuModrinth** is an alternative frontend for the popular modding platform, Modrinth. The project aims to provide a clean, responsive, and efficient interface for browsing the extensive database of Minecraft content.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+> **Note:** RuModrinth is neither a hosting service nor a proxy. We use the public Modrinth API to display content. All rights to the content belong to their respective authors.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### 🌟 Key Features
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+*   **⚡ Instant Search:** Fast filtering by game versions, loaders (Fabric, Forge, NeoForge, etc.), and categories.
+*   **🎨 Comprehensive Support:** View all project types:
+    *   Mods
+    *   Resource Packs
+    *   Data Packs
+    *   Shaders
+    *   Modpacks
+    *   Plugins
+*   **🛠 Detailed Project Views:** Explore galleries, version history, and rich markdown changelogs.
+*   **🛡 Content Safety:** Built-in content filtering to ensure compliance with regional safety standards.
+*   **📱 Responsive Design:** Optimized for both desktop and mobile devices.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 📸 Preview
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+<div align="center">
+  <img src="https://rumodrinth.onrender.com/RuModrinth_logo.png" alt="Icon" width="100" />
+  <p><em>Clean architecture, powered by React and TypeScript.</em></p>
+</div>
+
+---
+
+## 🛠 Tech Stack
+
+This project relies on modern web technologies to ensure performance and maintainability:
+
+| Technology | Purpose |
+| :--- | :--- |
+| **React** | UI Library |
+| **TypeScript** | Static typing and code reliability |
+| **Vite** | Next Generation Frontend Tooling |
+| **React Router** | Client-side routing (SPA) |
+| **Showdown** | Markdown to HTML converter |
+| **React Icons** | Vector icons |
+
+---
+
+## 🚀 Getting Started
+
+To run this project locally on your machine:
+
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/Egor201-alt/RuModrinth.git
+    cd RuModrinth
+    ```
+
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    # or
+    yarn install
+    ```
+
+3.  **Start the development server:**
+    ```bash
+    npm run dev
+    ```
+
+4.  Open your browser at `http://localhost:5173`.
+
+---
+
+## ⚖️ Disclaimer
+
+Not an official Minecraft service. Not approved by or associated with Mojang or Microsoft.
+Content is provided via the Modrinth API.
+
+---
+
+<div align="center">
+  <p>Developed with ❤️ for the Minecraft community</p>
+  <p>© 2025 RuModrinth</p>
+</div>
