@@ -18,7 +18,7 @@ export function Header() {
     <header className="header">
       <div className="header-inner">
         <Link to="/" className="logo-link">
-          <img src="src/assets/RuModrinth_logo_full.png" alt="RuModrinth" className="logo-full-image" />
+          <img src="RuModrinth_logo_full.png" alt="RuModrinth" className="logo-full-image" />
         </Link>
         <nav className="header-nav">
           {NAVIGATION_LINKS.map(link => (
@@ -39,7 +39,7 @@ export function Footer() {
       <div className="footer-inner">
         
         <img 
-          src="src/assets/RuModrinth_logo_full.png" 
+          src="RuModrinth_logo_full.png" 
           alt="RuModrinth Logo" 
           className="footer-logo-main"
         />
