@@ -33,7 +33,7 @@ export function Header() {
   );
 }
 
-export function function Footer() {
+export function Footer() {
   return (
     <footer className="site-footer">
       <div className="footer-inner">
