@@ -12,6 +12,7 @@ import { GalleryTab, ChangelogTab, VersionsTab } from '../components/ProjectTabs
 import { BANNED_EXACT_SLUGS, BANNED_SLUG_KEYWORDS } from '../constants';
 import { moderateHtmlString, groupGameVersions, formatNumber } from '../utils';
 import { API_BASE_URL } from '../constants';
+import { ModernLoader, ErrorDisplay } from '../components/StatusMessages';
 
 export function ProjectPage() {
   const navigate = useNavigate();
@@ -128,8 +129,21 @@ export function ProjectPage() {
     });
   }, [teamMembers]);
 
-  if (loading) return <div className="mod-page-container">Загрузка…</div>;
-  if (error || !project) return <div className="mod-page-container" style={{color:'red'}}>{error ?? 'Проект не найден'}</div>;
+  if (loading) {
+      return (
+          <div className="mod-page-container" style={{ display: 'flex', justifyContent: 'center', paddingTop: '50px' }}>
+              <ModernLoader />
+          </div>
+      );
+  }
+
+  if (error || !project) {
+      return (
+          <div className="mod-page-container">
+              <ErrorDisplay message={error || 'Проект не найден'} onRetry={() => window.location.reload()} />
+          </div>
+      );
+  }
 
   const isClientSupported = project.client_side !== 'unsupported';
   const isServerSupported = project.server_side !== 'unsupported';
