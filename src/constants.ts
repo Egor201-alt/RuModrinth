@@ -1,6 +1,10 @@
 // src/constants.ts
 
-const PROXY_URL = 'https://rumodrinth-api.onrender.com';
+const PROXY_URL = 'https://rumodrinth-api.onrender.com'; 
+
+export const API_BASE_URL = import.meta.env.DEV 
+    ? 'https://api.modrinth.com/v2' 
+    : PROXY_URL;
 
 export const PROJECT_TYPES: { [key: string]: string } = {
   mods: 'mod',
