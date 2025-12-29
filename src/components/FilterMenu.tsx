@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import type { ReactNode } from 'react';
 import { FaSyncAlt, FaChevronUp, FaChevronDown, FaSearch, FaCheck, FaDesktop, FaServer } from 'react-icons/fa';
+import { API_BASE_URL } from '../constants';
 
 const FilterBlock = ({ title, children, isLoading = false }: { title: string, children: ReactNode, isLoading?: boolean }) => {
   const [isOpen, setIsOpen] = useState(true);
