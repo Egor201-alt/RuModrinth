@@ -15,7 +15,7 @@ const FilterBlock = ({ title, children, isLoading = false }: { title: string, ch
     </div>
   );
 };
-
+ 
 export function FilterMenu({
   projectType,
   selectedVersions, onVersionToggle,
