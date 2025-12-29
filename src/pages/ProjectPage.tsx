@@ -11,6 +11,7 @@ import { DownloadModal, ImageModal } from '../components/Modals';
 import { GalleryTab, ChangelogTab, VersionsTab } from '../components/ProjectTabs';
 import { BANNED_EXACT_SLUGS, BANNED_SLUG_KEYWORDS } from '../constants';
 import { moderateHtmlString, groupGameVersions, formatNumber } from '../utils';
+import { API_BASE_URL } from '../constants';
 
 export function ProjectPage() {
   const navigate = useNavigate();
@@ -28,7 +29,7 @@ export function ProjectPage() {
   const [allLoaders, setAllLoaders] = useState<any[]>([]);
 
   useEffect(() => {
-    fetch('https://api.modrinth.com/v2/tag/loader')
+    fetch('${API_BASE_URL}/tag/loader')
       .then(r => r.json())
       .then(data => Array.isArray(data) && setAllLoaders(data))
       .catch(e => console.error("Failed to fetch all loaders:", e));
@@ -58,8 +59,8 @@ export function ProjectPage() {
     setActiveTab('description'); 
     
     Promise.all([
-        fetch(`https://api.modrinth.com/v2/project/${projectSlug}`),
-        fetch(`https://api.modrinth.com/v2/project/${projectSlug}/version`)
+        fetch(`${API_BASE_URL}/project/${projectSlug}`),
+        fetch(`${API_BASE_URL}/project/${projectSlug}/version`)
     ])
     .then(async ([projectRes, versionsRes]) => {
         if (!projectRes.ok) {
@@ -71,7 +72,7 @@ export function ProjectPage() {
         let teamMembersData: any[] = [];
         if (projectData.team) {
             try {
-                const teamRes = await fetch(`https://api.modrinth.com/v2/team/${projectData.team}/members`);
+                const teamRes = await fetch(`${API_BASE_URL}/team/${projectData.team}/members`);
                 if (teamRes.ok) {
                     teamMembersData = await teamRes.json();
                 }
