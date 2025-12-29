@@ -1,8 +1,7 @@
-// src/components/FilterMenu.tsx
-import { useState, useEffect, useMemo, ReactNode } from 'react';
+import { useState, useEffect, useMemo } from 'react';
+import type { ReactNode } from 'react';
 import { FaSyncAlt, FaChevronUp, FaChevronDown, FaSearch, FaCheck, FaDesktop, FaServer } from 'react-icons/fa';
 
-// Вспомогательный компонент для аккордеона фильтров
 const FilterBlock = ({ title, children, isLoading = false }: { title: string, children: ReactNode, isLoading?: boolean }) => {
   const [isOpen, setIsOpen] = useState(true);
   return (
