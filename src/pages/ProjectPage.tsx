@@ -1,9 +1,10 @@
-// src/pages/ProjectPage.tsx
-import React, { useEffect, useState, useMemo } ;
+import { useEffect, useState, useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import showdown from 'showdown';
-import * as FaIcons from 'react-icons/fa'; // Или импорт конкретных иконок
-import { FaDownload, FaHeart, FaExclamationTriangle, FaCode, FaBook, FaUserFriends, FaGlobe, FaDesktop, FaServer, FaWrench, FaCrown, FaUser } from 'react-icons/fa';
+import { 
+    FaDownload, FaHeart, FaExclamationTriangle, FaCode, FaBook, 
+    FaUserFriends, FaGlobe, FaDesktop, FaServer, FaWrench, FaCrown, FaUser 
+} from 'react-icons/fa';
 
 import { ModeratedImage } from '../components/Common';
 import { DownloadModal, ImageModal } from '../components/Modals';
@@ -25,8 +26,6 @@ export function ProjectPage() {
   const [activeTab, setActiveTab] = useState('description');
   const [selectedImageUrl, setSelectedImageUrl] = useState<string | null>(null);
   const [allLoaders, setAllLoaders] = useState<any[]>([]);
-
-  const { FaCrown } = FaIcons;
 
   useEffect(() => {
     fetch('https://api.modrinth.com/v2/tag/loader')
