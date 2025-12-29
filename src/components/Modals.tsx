@@ -1,5 +1,4 @@
-// src/components/Modals.tsx
-import React, { useState, useEffect, useMemo } ;
+import { useState, useEffect, useMemo } from 'react';
 import { FaDownload, FaTimes, FaBoxOpen, FaGamepad, FaWrench } from 'react-icons/fa';
 import { ModeratedImage, CustomSelector } from './Common';
 
@@ -10,16 +9,16 @@ export function DownloadModal({ isOpen, onClose, project, files }: { isOpen: boo
   const [isClosing, setIsClosing] = useState(false);
 
   const allUniqueVersions = useMemo(() => Array.from(new Set(files.flatMap(f => f.game_versions)))
-      .sort((a, b) => b.localeCompare(a, undefined, { numeric: true })), [files]);
+      .sort((a: any, b: any) => b.localeCompare(a, undefined, { numeric: true })), [files]);
       
-  const versionsToShow = useMemo(() => showAllVersions ? allUniqueVersions : allUniqueVersions.filter(v => /^\d+\.\d+(\.\d+)?$/.test(v)), [allUniqueVersions, showAllVersions]);
+  const versionsToShow = useMemo(() => showAllVersions ? allUniqueVersions : allUniqueVersions.filter((v: any) => /^\d+\.\d+(\.\d+)?$/.test(v)), [allUniqueVersions, showAllVersions]);
     
   const allLoaders = useMemo(() => Array.from(new Set(files.flatMap(f => f.loaders))), [files]);
 
   useEffect(() => {
     if (isOpen && files.length > 0) {
-      if (allLoaders.length > 0) setSelectedLoader(prev => allLoaders.includes(prev) ? prev : allLoaders[0]);
-      if (versionsToShow.length > 0) setSelectedVersion(prev => versionsToShow.includes(prev) ? prev : versionsToShow[0]);
+      if (allLoaders.length > 0) setSelectedLoader(prev => allLoaders.includes(prev as string) ? prev as string : allLoaders[0] as string);
+      if (versionsToShow.length > 0) setSelectedVersion(prev => versionsToShow.includes(prev as string) ? prev as string : versionsToShow[0] as string);
     }
   }, [isOpen, files, allLoaders, versionsToShow]);
 
@@ -59,7 +58,7 @@ export function DownloadModal({ isOpen, onClose, project, files }: { isOpen: boo
             <CustomSelector 
                 label="Game version" 
                 icon={<FaGamepad />}
-                options={versionsToShow}
+                options={versionsToShow as string[]}
                 selected={selectedVersion}
                 onChange={setSelectedVersion}
                 searchable={true}
@@ -69,7 +68,7 @@ export function DownloadModal({ isOpen, onClose, project, files }: { isOpen: boo
             <CustomSelector 
                 label="Platform"
                 icon={<FaWrench />}
-                options={allLoaders}
+                options={allLoaders as string[]}
                 selected={selectedLoader}
                 onChange={setSelectedLoader}
                 disabled={allLoaders.length <= 1}
