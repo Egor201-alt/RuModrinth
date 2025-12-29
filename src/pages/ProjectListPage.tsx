@@ -8,6 +8,7 @@ import { FilterMenu } from '../components/FilterMenu';
 import { Pagination, ModeratedImage } from '../components/Common';
 import { PROJECT_TYPES, PROJECT_TYPE_PATHS, PROJECT_TYPE_LABELS, BANNED_KEYWORDS } from '../constants';
 import { formatNumber, timeAgo } from '../utils';
+import { API_BASE_URL } from '../constants';
 
 export function ProjectListPage() {
     const { projectType = 'mods' } = useParams<{ projectType: string }>();
@@ -25,7 +26,7 @@ export function ProjectListPage() {
     const [allLoaders, setAllLoaders] = useState<any[]>([]);
 
     useEffect(() => {
-        fetch('https://api.modrinth.com/v2/tag/loader')
+        fetch('${API_BASE_URL}/tag/loader')
             .then(r => r.json())
             .then(data => Array.isArray(data) && setAllLoaders(data))
             .catch(e => console.error("Failed to fetch all loaders:", e));
@@ -67,7 +68,7 @@ export function ProjectListPage() {
             query: search
         });
 
-        fetch(`https://api.modrinth.com/v2/search?${params}`)
+        fetch(`${API_BASE_URL}/search?${params}`)
             .then(r => r.json())
             .then(d => {
                 const hits = d.hits || [];
