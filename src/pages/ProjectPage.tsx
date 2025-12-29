@@ -1,5 +1,5 @@
 // src/pages/ProjectPage.tsx
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState, useMemo } ;
 import { useParams, useNavigate } from 'react-router-dom';
 import showdown from 'showdown';
 import * as FaIcons from 'react-icons/fa'; // Или импорт конкретных иконок
