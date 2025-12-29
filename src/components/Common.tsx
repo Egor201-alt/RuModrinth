@@ -17,7 +17,7 @@ export function ModeratedImage({ src, alt, className, ...rest }: { src: string |
 }
 
 // ProjectIcon
-export function function ProjectIcon({ projectType }: { projectType: string }) {
+export function ProjectIcon({ projectType }: { projectType: string }) {
   switch (projectType) {
     case 'mods':
       return (
