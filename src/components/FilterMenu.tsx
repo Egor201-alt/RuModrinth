@@ -64,9 +64,9 @@ export function FilterMenu({
     setFiltersError(null);
 
     Promise.all([
-        fetch('${API_BASE_URL}/tag/game_version'),
-        fetch('${API_BASE_URL}/tag/loader'),
-        fetch('${API_BASE_URL}/tag/category')
+        fetch(`${API_BASE_URL}/tag/game_version`),
+        fetch(`${API_BASE_URL}/tag/loader`),
+        fetch(`${API_BASE_URL}/tag/category`)
     ])
       .then(responses => Promise.all(responses.map(res => res.json())))
       .then(([gameVersionsData, loadersData, categoriesData]) => {
