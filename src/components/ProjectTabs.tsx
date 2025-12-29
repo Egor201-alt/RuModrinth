@@ -1,9 +1,9 @@
-// src/components/ProjectTabs.tsx
-import React, { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import showdown from 'showdown';
-import { FaDownload, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { FaDownload } from 'react-icons/fa';
 import { ModeratedImage, Pagination } from './Common';
-import { censorText, timeAgo, groupGameVersions, formatNumber, BANNED_IMAGE_URLS } from '../utils'; // Импортируем утилиты
+import { censorText, timeAgo, groupGameVersions, formatNumber } from '../utils';
+import { BANNED_IMAGE_URLS } from '../constants';
 
 export function GalleryTab({ gallery, onImageClick }: { gallery: any[], onImageClick: (url: string) => void }) {
   if (!gallery || gallery.length === 0) {
@@ -32,7 +32,7 @@ export function GalleryTab({ gallery, onImageClick }: { gallery: any[], onImageC
             <h3>{censorText(image.title)}</h3>
             <p>{censorText(image.description)}</p>
             <div className="gallery-card-meta">
-                <svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+                <svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2">
                   <path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2" />
                 </svg>
               <span>{formatDate(image.created)}</span>
