@@ -1,5 +1,7 @@
 // src/constants.ts
 
+const PROXY_URL = 'https://rumodrinth-api.onrender.com';
+
 export const PROJECT_TYPES: { [key: string]: string } = {
   mods: 'mod',
   resourcepacks: 'resourcepack',
