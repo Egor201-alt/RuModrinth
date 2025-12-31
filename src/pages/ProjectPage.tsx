@@ -93,7 +93,13 @@ export function ProjectPage() {
         );
         setVersions(sortedVersions);
 
-        const converter = new showdown.Converter();
+        const converter = new showdown.Converter({
+          tables: true,
+          strikethrough: true,
+          tasklists: true,
+          simpleLineBreaks: true,
+          ghCompatibleHeaderId: true
+        });
         const rawHtml = converter.makeHtml(projectData.body);
         
         const moderatedHtml = moderateHtmlString(rawHtml);
