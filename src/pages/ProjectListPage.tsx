@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { FaGlobe, FaBook, FaCogs, FaDownload, FaHeart, FaSyncAlt } from 'react-icons/fa';
-
+import { FaGlobe, FaBook, FaCogs, FaDownload, FaHeart, FaSyncAlt, FaChevronDown } from 'react-icons/fa';
 import { MainLayout } from '../components/Layout';
 import { FilterMenu } from '../components/FilterMenu';
 import { Pagination, ModeratedImage } from '../components/Common';
@@ -9,6 +8,12 @@ import { PROJECT_TYPES, PROJECT_TYPE_PATHS, PROJECT_TYPE_LABELS, BANNED_KEYWORDS
 import { formatNumber, timeAgo } from '../utils';
 import { API_BASE_URL } from '../constants';
 import { ModernLoader, ErrorDisplay } from '../components/StatusMessages';
+
+const SORT_OPTIONS = [
+  { value: 'relevance', label: 'Relevance' },
+  { value: 'downloads', label: 'Downloads' },
+  { value: 'updated', label: 'Updated' },
+];
 
 export function ProjectListPage() {
     const { projectType = 'mods' } = useParams<{ projectType: string }>();
@@ -18,11 +23,12 @@ export function ProjectListPage() {
     const [page, setPage] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
     const [search, setSearch] = useState('');
+    const [sortBy, setSortBy] = useState('relevance');
+    const [isSortOpen, setIsSortOpen] = useState(false);
     const [selectedVersions, setSelectedVersions] = useState<string[]>([]);
     const [selectedLoaders, setSelectedLoaders] = useState<string[]>([]);
     const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
     const [selectedEnvironments, setSelectedEnvironments] = useState<string[]>([]);
-
     const [allLoaders, setAllLoaders] = useState<any[]>([]);
 
     useEffect(() => {
@@ -41,6 +47,7 @@ export function ProjectListPage() {
         setPage(0);
         setTotalPages(0);
         setSearch('');
+        setSortBy('relevance');
         setSelectedVersions([]);
         setSelectedLoaders([]);
         setSelectedCategories([]);
@@ -63,7 +70,7 @@ export function ProjectListPage() {
     
         const params = new URLSearchParams({
             facets: JSON.stringify(allFacets),
-            index: 'relevance',
+            index: sortBy,
             limit: '20',
             offset: String(page * 20),
             query: search
@@ -73,18 +80,9 @@ export function ProjectListPage() {
             .then(r => r.json())
             .then(d => {
                 const hits = d.hits || [];
-
                 const filteredProjects = hits.filter((project: any) => {
-                    const title = project.title.toLowerCase();
-                    const description = project.description.toLowerCase();
-                    
-                    const hasBannedKeyword = BANNED_KEYWORDS.some(keyword => 
-                        title.includes(keyword) || description.includes(keyword)
-                    );
-                    
-                    return !hasBannedKeyword;
+                    return !BANNED_KEYWORDS.some(keyword => project.title.toLowerCase().includes(keyword));
                 });
-
                 setProjects(filteredProjects);
                 setTotalPages(Math.ceil(d.total_hits / 20));
                 setLoading(false);
@@ -93,7 +91,7 @@ export function ProjectListPage() {
                 setError(e.toString());
                 setLoading(false);
             });
-    }, [page, search, selectedVersions, selectedLoaders, selectedCategories, selectedEnvironments, projectType]);
+    }, [page, search, selectedVersions, selectedLoaders, selectedCategories, selectedEnvironments, projectType, sortBy]);
 
     const onSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearch(e.target.value);
@@ -113,15 +111,7 @@ export function ProjectListPage() {
     };
 
     const currentLabel = PROJECT_TYPE_LABELS[projectType] || 'Projects';
-
-    const handleRetry = () => {
-        setLoading(true);
-        setError(undefined);
-
-        setPage(prev => (prev === 0 ? 0 : 0)); 
-
-        window.location.reload();
-    };
+    const currentSortLabel = SORT_OPTIONS.find(opt => opt.value === sortBy)?.label;
 
     return (
         <MainLayout sidebar={
@@ -139,11 +129,31 @@ export function ProjectListPage() {
         }>
             <div className="mods-header-row">
                 <input className="search-bar" type="text" placeholder={`Search ${currentLabel}...`} value={search} onChange={onSearchChange} />
-                <select className="sort-select">
-                    <option>Sort by: Relevance</option>
-                    <option>Downloads</option>
-                    <option>Updated</option>
-                </select>
+                
+                <div className="custom-sort-container">
+                    <button className="sort-select-button" onClick={() => setIsSortOpen(!isSortOpen)}>
+                        <span>Sort by: {currentSortLabel}</span>
+                        <FaChevronDown className={`chevron ${isSortOpen ? 'open' : ''}`} />
+                    </button>
+                    {isSortOpen && (
+                        <div className="sort-dropdown-menu">
+                            {SORT_OPTIONS.map(option => (
+                                <button
+                                    key={option.value}
+                                    className={`sort-option ${sortBy === option.value ? 'active' : ''}`}
+                                    onClick={() => {
+                                        setSortBy(option.value);
+                                        setIsSortOpen(false);
+                                        setPage(0);
+                                    }}
+                                >
+                                    {option.label}
+                                </button>
+                            ))}
+                        </div>
+                    )}
+                </div>
+
                 <div className="pagination-top">
                     {totalPages > 1 && (
                         <Pagination currentPage={page} totalPages={totalPages} onPageChange={setPage} />
@@ -151,29 +161,15 @@ export function ProjectListPage() {
                 </div>
             </div>
 
-            {/* ОТОБРАЖЕНИЕ ОШИБКИ */}
-            {error && (
-                <ErrorDisplay 
-                    message={error} 
-                    onRetry={handleRetry}
-                />
-            )}
+            {error && <ErrorDisplay message={error} onRetry={() => window.location.reload()} />}
       
             <div className="mods-list-wrapper">
-                {/* ОТОБРАЖЕНИЕ ЗАГРУЗКИ */}
                 {loading && (
                     <div className={projects.length > 0 ? "loading-overlay" : "initial-loading-container"}>
-                        {/* Если это первая загрузка, показываем полный лоадер с текстом */}
-                        {projects.length === 0 ? (
-                            <ModernLoader />
-                        ) : (
-                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
-                                <FaSyncAlt className="spinner" />
-                            </div>
-                        )}
+                        {projects.length === 0 ? <ModernLoader /> : <FaSyncAlt className="spinner" />}
                     </div>
                 )}
-
+                
                 <div className={`mods-list ${loading && projects.length > 0 ? 'loading-transition' : ''}`}>
                     {projects.map((project) => {
                         const singularProjectType = PROJECT_TYPE_PATHS[projectType] || 'mod';
@@ -212,6 +208,7 @@ export function ProjectListPage() {
                     })}
                 </div>
             </div>
+
             <div className="pagination-bottom">
                 {totalPages > 1 && (
                     <Pagination currentPage={page} totalPages={totalPages} onPageChange={setPage} />
