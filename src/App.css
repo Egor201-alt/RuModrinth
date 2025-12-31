@@ -136,18 +136,11 @@ button { font-family: var(--font-family); }
 .mod-page-nav .nav-tab:hover { color: var(--color-text); }
 .mod-page-nav .nav-tab.active { background-color: var(--color-primary); color: #fff; }
 .mod-body-container { background-color: var(--color-card); border-radius: 12px; border: 1px solid transparent; }
-.mod-body-content table { width: 100%; border-collapse: collapse; background-color: rgba(0, 0, 0, 0.2); border-radius: 12px; border: 1px solid var(--color-card-border); margin: 1.5em 0; padding: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
-.mod-body-content td,
-.mod-body-content th { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--color-card-border); }
-.mod-body-content tbody tr:last-child td { border-bottom: none; }
-.mod-body-content th { color: var(--color-text-darker); font-weight: 600; }
-.mod-body-content pre { background-color: rgba(0, 0, 0, 0.2); border: 1px solid var(--color-card-border); border-radius: 12px; padding: 16px; overflow-x: auto; font-family: 'Consolas', 'Courier New', monospace; font-size: 0.95em; margin: 1.5em 0; }
-.mod-body-content p > code,
-.mod-body-content li > code { background-color: var(--color-card-border); padding: 3px 6px; border-radius: 4px; font-size: 0.9em; color: #e2b714; }
-.mod-body-content table a,
-.mod-body-content pre a { color: var(--color-primary) !important; text-decoration: none !important; font-weight: 600; }
-.mod-body-content table a:hover,
-.mod-body-content pre a:hover { text-decoration: underline !important; }
+.mod-body-content { padding: 24px; line-height: 1.7; color: var(--color-text); }
+.mod-body-content > *:first-child { margin-top: 0; }
+.mod-body-content a { color: var(--color-text-author); text-decoration: underline; }
+.mod-body-content img { max-width: 100%; border-radius: 8px; }
+.mod-body-content h1, .mod-body-content h2, .mod-body-content h3 { color: #fff; }
 .info-card { background-color: var(--color-card); border-radius: 12px; border: 1px solid transparent; padding: 20px; box-shadow: 0 3px 20px rgba(0, 0, 0, 0.3);}
 .info-card-title { margin: 0 0 16px; font-size: 1.2rem; color: #fff; }
 .info-card h4 { margin: 16px 0 8px; font-size: 1rem; color: var(--color-text-darker); }
