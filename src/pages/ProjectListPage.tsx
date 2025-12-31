@@ -15,6 +15,8 @@ const SORT_OPTIONS = [
   { value: 'updated', label: 'Updated' },
 ];
 
+const VIEW_OPTIONS = [5, 10, 15, 20, 50, 100];
+
 export function ProjectListPage() {
     const { projectType = 'mods' } = useParams<{ projectType: string }>();
     const [projects, setProjects] = useState<any[]>([]);
@@ -25,6 +27,8 @@ export function ProjectListPage() {
     const [search, setSearch] = useState('');
     const [sortBy, setSortBy] = useState('relevance');
     const [isSortOpen, setIsSortOpen] = useState(false);
+    const [limit, setLimit] = useState(20);
+    const [isViewOpen, setIsViewOpen] = useState(false);
     const [selectedVersions, setSelectedVersions] = useState<string[]>([]);
     const [selectedLoaders, setSelectedLoaders] = useState<string[]>([]);
     const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
@@ -48,6 +52,7 @@ export function ProjectListPage() {
         setTotalPages(0);
         setSearch('');
         setSortBy('relevance');
+        setLimit(20);
         setSelectedVersions([]);
         setSelectedLoaders([]);
         setSelectedCategories([]);
@@ -71,8 +76,8 @@ export function ProjectListPage() {
         const params = new URLSearchParams({
             facets: JSON.stringify(allFacets),
             index: sortBy,
-            limit: '20',
-            offset: String(page * 20),
+            limit: String(limit),
+            offset: String(page * limit),
             query: search
         });
 
@@ -84,14 +89,14 @@ export function ProjectListPage() {
                     return !BANNED_KEYWORDS.some(keyword => project.title.toLowerCase().includes(keyword));
                 });
                 setProjects(filteredProjects);
-                setTotalPages(Math.ceil(d.total_hits / 20));
+                setTotalPages(Math.ceil(d.total_hits / limit));
                 setLoading(false);
             })
             .catch(e => {
                 setError(e.toString());
                 setLoading(false);
             });
-    }, [page, search, selectedVersions, selectedLoaders, selectedCategories, selectedEnvironments, projectType, sortBy]);
+    }, [page, search, selectedVersions, selectedLoaders, selectedCategories, selectedEnvironments, projectType, sortBy, limit]);
 
     const onSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearch(e.target.value);
@@ -130,6 +135,30 @@ export function ProjectListPage() {
             <div className="mods-header-row">
                 <input className="search-bar" type="text" placeholder={`Search ${currentLabel}...`} value={search} onChange={onSearchChange} />
                 
+                <div className="custom-view-container">
+                    <button className="view-select-button" onClick={() => setIsViewOpen(!isViewOpen)}>
+                        <span>View: {limit}</span>
+                        <FaChevronDown className={`chevron ${isViewOpen ? 'open' : ''}`} />
+                    </button>
+                    {isViewOpen && (
+                        <div className="view-dropdown-menu">
+                            {VIEW_OPTIONS.map(option => (
+                                <button
+                                    key={option}
+                                    className={`view-option ${limit === option ? 'active' : ''}`}
+                                    onClick={() => {
+                                        setLimit(option);
+                                        setIsViewOpen(false);
+                                        setPage(0);
+                                    }}
+                                >
+                                    {option}
+                                </button>
+                            ))}
+                        </div>
+                    )}
+                </div>
+
                 <div className="custom-sort-container">
                     <button className="sort-select-button" onClick={() => setIsSortOpen(!isSortOpen)}>
                         <span>Sort by: {currentSortLabel}</span>
@@ -185,7 +214,6 @@ export function ProjectListPage() {
                                         dangerouslySetInnerHTML={{ __html: riftIconSvg || '' }}
                                     />
                                 )}
-                                
                                 <div className="mod-card-body-compact">
                                     <div className="mod-card-main-info">
                                         <div className="mod-card-title-compact">{project.title}</div>
