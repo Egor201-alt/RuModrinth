@@ -328,3 +328,14 @@ button { font-family: var(--font-family); }
 .retry-button:hover { background: var(--color-alpha); color: #fff; }
 
 @keyframes pulse { 0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(0.9); } 50% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); } }
+
+/* --- CUSTOM SORT SELECT --- */
+.custom-sort-container { position: relative; width: 220px; flex-shrink: 0; }
+.sort-select-button { width: 100%; background: var(--color-card); border-radius: 8px; border: 1px solid transparent; padding: 12px 18px; color: var(--color-text); font-size: 1rem; outline: none; transition: all 0.2s; display: flex; align-items: center; justify-content: space-between; cursor: pointer; text-align: left; }
+.sort-select-button:hover { border-color: #555; }
+.sort-select-button .chevron { transition: transform 0.2s ease-in-out; color: var(--color-text-darker); }
+.sort-select-button .chevron.open { transform: rotate(180deg); }
+.sort-dropdown-menu { position: absolute; top: calc(100% + 8px); left: 0; right: 0; background-color: #313131; border-radius: 8px; border: 1px solid var(--color-card-border); z-index: 50; padding: 8px; display: flex; flex-direction: column; gap: 4px; box-shadow: 0 8px 16px rgba(0,0,0,0.3); animation: fadeIn 0.15s ease-out; }
+.sort-option { width: 100%; background: none; border: none; color: var(--color-text-darker); padding: 10px 12px; border-radius: 6px; text-align: left; font-size: 1rem; font-weight: 500; cursor: pointer; transition: all 0.2s; }
+.sort-option:hover { background-color: #444; color: var(--color-text); }
+.sort-option.active { background-color: var(--color-primary); color: #fff; font-weight: 600; }
