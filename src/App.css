@@ -135,6 +135,7 @@ button { font-family: var(--font-family); }
 .mod-page-nav .nav-tab { background: none; border: none; color: var(--color-text-darker); padding: 8px 24px; font-size: 1rem; font-weight: 600; cursor: pointer; border-radius: 8px; transition: background-color 0.2s, color 0.2s; }
 .mod-page-nav .nav-tab:hover { color: var(--color-text); }
 .mod-page-nav .nav-tab.active { background-color: var(--color-primary); color: #fff; }
+.mod-body-container { background-color: var(--color-card); border-radius: 12px; border: 1px solid transparent; }
 .mod-body-content table { width: 100%; border-collapse: collapse; background-color: rgba(0, 0, 0, 0.2); border-radius: 12px; border: 1px solid var(--color-card-border); margin: 1.5em 0; padding: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
 .mod-body-content td,
 .mod-body-content th { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--color-card-border); }
